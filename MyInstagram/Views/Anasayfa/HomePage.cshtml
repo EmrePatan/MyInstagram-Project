@@ -1,0 +1,208 @@
+﻿@using Entities
+@model List<Story>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MyInstagram</title>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/Scripts/jquery/jquery.min.js"></script>
+    <script src="/Scripts/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+        <!---- Page Content ---->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    @foreach (Story story in Model)
+                    {
+                        <div>
+                            <img class="rounded-circle" src="@Url.Content("~/profilpictures/" + System.IO.Path.GetFileName(story.User.ProfilePicture))">
+                            @story.User.Username
+                        </div>
+                        <div class="StoryCard">
+                            <span class="FindStoryID" hidden>@story.ID</span>
+                            <img style="width:400px;" src="@Url.Content("~/files/" + System.IO.Path.GetFileName(story.ImagePath))" /><br />
+                            <i class="far fa-heart fa-lg"></i>
+                            <i class="far fa-comment fa-lg"></i>
+                            @if (story.LikeCount == 0)
+                            {
+                                <a class="small GetLikeCount">İlk beğenen sen ol</a>
+                            }
+                            else
+                            {
+                                <a class="alert-light small GetLikeCount">@story.LikeCount</a> <a class="small">kez beğenildi</a>
+                            }
+                            @if (story.Text != null)
+                            {
+                                <br />
+                                <img class="rounded-circle child" src="@Url.Content("~/profilpictures/" + System.IO.Path.GetFileName(story.User.ProfilePicture))">
+
+                                <span class="small"><b>@story.User.Username</b> @story.Text</span>
+                            }
+                            @if (Session["ActiveUser"] != null)
+                            {
+                                if (story.Comments != null)
+                                {
+                                    foreach (Comment comment in story.Comments.Take(4))
+                                    {
+                                        <div class="media">
+                                            @if (comment.User.ProfilePicture != null)
+                                            {
+                                                <img class="d-flex mr-2 rounded-circle" src="@Url.Content("~/profilpictures/" + System.IO.Path.GetFileName(comment.User.ProfilePicture))" alt="">
+                                                <div class="media-body">
+                                                    <p>@comment.Text</p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <img class="d-flex mr-2 rounded-circle" src="@Url.Content("~/Content/images/user1.png")" />
+                                                <div class="media-body">
+                                                    <p>@comment.Text</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    if (story.Comments.Count >= 4)
+                                    {
+                                        <p>Tüm yorumları görmek için tıkla</p>
+                                    }
+                                }
+                                <input type="text" class="form-control GetCommentText" id="@story.ID" placeholder="Yorum Ekle" />
+                                <hr />
+
+                            }
+                            else
+                            {
+                                <div class="media mb-4">
+                                    <h5>Yorum Yapmak İçin Lütfen Giriş Yapınız !</h5>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-3">
+                    <!-- Followers Widget -->
+                    <div class="card my-4 text-center">
+                        <h6 class="card-header">Takipçiler</h6>
+                        <div class="card-body">
+                        </div>
+                    </div>
+                    <!-- Following Widget -->
+                    <div class="card my-4 text-center">
+                        <h6 class="card-header">Takip Edilenler</h6>
+                        <div class="card-body">
+                        </div>
+                    </div>
+                    <!-- Search Widget -->
+                    <div class="card my-4 text-center">
+                        <h6 class="card-header">Arama</h6>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Aramak İçin...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---- Footer Content ---->
+        <footer class="py-5 bg-white">
+            <div class="container">
+                <p class="text-right text-black-50">&copy; @DateTime.Now.Year MyInstagram</p>
+            </div>
+        </footer>
+
+        <!---- JavaScript Codes ---->
+        <script>
+            $(".fa-comment").click(function () {
+                $(this).parent().find('.GetCommentText').focus();
+            });
+
+            $(".fa-heart").click(function () {
+                $(this).addClass('fas fa-heart');
+                $(this).css('color', 'red');
+
+                var StoryID = $(this).parent().find('.FindStoryID').text();
+                var Liked = $(this).closest(".StoryCard").find(".GetLikeCount");
+
+                $.ajax(
+                    {
+                        method: "POST",
+                        url: "/Anasayfa/AddLike",
+                        data: { "StoryID": StoryID }
+                    }).always(function (data) {
+                        Liked.html(data + " kez beğenildi");
+                    });                
+            });
+
+            var input = document.getElementsByClassName("GetCommentText");
+            for (var i = 0; i < input.length; i++) {
+                input[i].addEventListener("keyup", function (event) {
+                    var SelectedInput = this.id;
+                    event.preventDefault();
+                    if (event.keyCode === 13) {
+                        var Text = document.getElementById(SelectedInput).value;
+                        var StoryID = SelectedInput;
+
+                        $.ajax(
+                            {
+                                method: "POST",
+                                url: "/Anasayfa/AddComment",
+                                data: { "Text": Text, "StoryID": StoryID }
+                            }).always(function () {
+                                location.reload();
+                            });
+                    };
+                });
+            };
+        </script>
+
+        <!---- Css Codes ---->
+        <style>
+        p {
+            font-size: smaller;
+            border: hidden;
+            padding: 6px;
+            margin: -1px;
+        }
+
+        .rounded-circle {
+            height: 35px;
+            width: 35px;
+        }
+
+        .child {
+            height: 15px;
+            width: 15px;
+        }
+        .col-lg-8 {
+            left: 220px;
+        }
+        .StoryCard{
+            width:500px
+        }
+
+        .fa-heart {
+            padding-right: 10px;
+            padding-top: 15px;
+            padding-bottom: 13px;
+        }
+
+        .fa-comment {
+            padding-bottom: 13px;
+        }
+
+        .ShowAllComments, .ShowAllComments:hover {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</body>
+</html>
+    

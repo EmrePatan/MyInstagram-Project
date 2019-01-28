@@ -1,0 +1,162 @@
+﻿@model Entities.ValueObjects.LoginVM
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyInstagram'a Hoşgeldiniz</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            @Html.Partial("_Login&RegisterPV")
+            <!---- Login ---->
+            <div class="col-lg-6" id="Login">
+                <div class="container box">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-title">MyInstagram</div>
+                        </div>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Login", "Anasayfa", FormMethod.Post))
+                            {
+                                @Html.ValidationSummary(false)
+                                <div class="textbox">
+                                    @Html.TextBoxFor(x => x.Identity, new { @class = "form-control",
+                                   id="currentusername",
+                                   placeholder = "Kullanıcı adı veya e-posta adresi",
+                                   style = "background-color:#f4f7e6;" +
+                                   "border-radius:5px"
+                               })
+                                </div>
+                                <div class="textbox">
+                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control",
+                                   id = "currentpassword",
+                                   placeholder = "Şifre",
+                                   style = "background-color:#f4f7e6;" +
+                                   "border-radius:5px" })
+                                </div>
+                                <button type="submit" id="button" class="btn btn-block" disabled>Giriş Yap</button>
+                            }
+                            <span>————————</span>
+                            <span class="bar"> YA DA </span>
+                            <span>———————</span>
+                            <br /><br />
+                            <a href="/Anasafya/FacebookLogin" id="facebookLink"><img src="~/Content/images/facebook-icon.png" id="img02" />Facebook ile Giriş Yap</a>
+                            <br /><br />
+                            <a href="#" id="forgetPassword">Şifreni mi unuttun?</a>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body text-center">
+                            <p>Hesabın yok mu ? <a href="/Anasayfa/Register">Kaydol</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var boxes = document.getElementsByClassName("form-control");
+        for (var i = 0; i < boxes.length; i++) {
+            boxes[i].addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode != null) {
+                    document.getElementById("button").disabled = false;
+                }
+            })
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: ghostwhite;
+        }
+
+        #facebookLink {
+            margin-left: 67px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+            color: #385185
+        }
+
+        #forgetPassword {
+            margin-left: 110px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+            color: #385185;
+            font-size: 11px;
+        }
+
+        #img02 {
+            border-radius: 3px;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px
+        }
+
+        .panel {
+            width: 350px;
+            border: solid;
+            border-width: .036em;
+            border-color: #eee6e6
+        }
+
+        .panel-title {
+            font-family: 'Script MT';
+            font-size: 45px;
+            text-align: center;
+        }
+
+        .box {
+            margin-top: 80px;
+            margin-right: 200px;
+            width: 350px;
+            height: 500px;
+            border: thin;
+            border-color: white;
+        }
+
+        .textbox {
+            padding-bottom: 5px;
+            width: 300px;
+            margin-left: 10px;
+        }
+
+        .btn, .btn:hover {
+            background-color: #3897f0;
+            color: white;
+            border-radius: 5px;
+            width: 300px;
+            height: 30px;
+            text-align: center;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        :disabled {
+            pointer-events: none
+        }
+
+        .bar {
+            padding: 5px;
+            color: #808080;
+            font-size: smaller;
+        }
+        span {
+            color: #efefef;
+            height: 1px;
+            position: relative;
+            top: .45em;
+            margin-left: 10px;
+        }
+        .text-center {
+            font-size: 13px;
+            color: #262626;
+        }
+ 
+    </style>
+</body>
+</html>
