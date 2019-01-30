@@ -1,0 +1,39 @@
+﻿p {
+    font-size: smaller;
+    border: hidden;
+    padding: 6px;
+    margin: -1px;
+}
+
+.rounded-circle {
+    height: 35px;
+    width: 35px;
+}
+
+.child {
+    height: 15px;
+    width: 15px;
+}
+
+.col-lg-8 {
+    left: 220px;
+}
+
+.StoryCard {
+    width: 500px
+}
+
+.fa-heart {
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 13px;
+}
+
+.fa-comment {
+    padding-bottom: 13px;
+}
+
+.ShowAllComments, .ShowAllComments:hover {
+    text-decoration: none;
+    color: black;
+}

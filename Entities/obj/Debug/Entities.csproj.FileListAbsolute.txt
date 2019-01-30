@@ -9,3 +9,4 @@ C:\Users\BUSRA\Source\Repos\MyInstagram\Entities\obj\Debug\Entities.csproj.CoreC
 C:\Users\BUSRA\Source\Repos\MyInstagram\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\BUSRA\Source\Repos\MyInstagram\Entities\obj\Debug\Entities.dll
 C:\Users\BUSRA\Source\Repos\MyInstagram\Entities\obj\Debug\Entities.pdb
+C:\Users\BUSRA\Source\Repos\MyInstagram\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
