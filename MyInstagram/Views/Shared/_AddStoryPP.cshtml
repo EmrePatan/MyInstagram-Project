@@ -1,0 +1,53 @@
+﻿
+@using (Html.BeginForm("AddStory", "Anasayfa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal modal-x" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MyInstagram Story Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="AddImg">
+                        <input type="file" name="file" class="base-input" />
+                        <img src="~/Content/images/chooseaphoto.png" class="fake-input" />
+                        <textarea class="form-control textarea" name="StoryComment" rows="6"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Paylaş</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+    $(".AddStory").click(function () {
+        $(".modal").css('display', 'block');
+    });
+
+    $(".close,.btn-secondary").click(function () {
+        $(".modal-x").css('display', 'none');
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.fake-input').attr('src', e.target.result);
+            };
+        };
+        reader.readAsDataURL(input.files[0]);
+    };
+
+    $(".base-input").change(function () {
+        readURL(this);
+    });
+</script>

@@ -1,0 +1,33 @@
+﻿.ImgContainer {
+    height: 150px;
+    width: 150px;
+    border-radius: 100px
+}
+
+.ImgContainer:hover {
+    cursor: pointer
+}
+
+#PP-body {
+    height: 220px
+}
+
+#PP-Content {
+    top:auto;
+}
+
+#PP-Container{
+    width:850px;
+}
+.ImgProfile {
+    height: 250px;
+    width: 250px;
+    border-radius:20px;
+    margin-bottom:10px
+}
+
+.fa-user-edit{
+    padding-left:10px;
+    cursor:pointer
+}
+

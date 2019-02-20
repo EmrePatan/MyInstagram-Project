@@ -1,0 +1,44 @@
+﻿
+@if (Model.ProfilePicture != null)
+{
+    <img class="ImgContainer" src="@Url.Content("~/profilpictures/" + System.IO.Path.GetFileName(Model.ProfilePicture))">
+}
+else
+{
+    <img class="ImgContainer" src="@Url.Content("~/Content/images/user1.png")" />
+}
+
+
+    <div>
+        @using (Html.BeginForm("AddProfilePicture", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal modal-x" id="PP" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" id="PP-Content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Profil Fotoğrafı Seç</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="PP-body">
+                            <div class="AddImg">
+                                <input type="file" name="file" class="base-input" />
+                                <img src="@Url.Content("~/profilpictures/" + System.IO.Path.GetFileName(Model.ProfilePicture))" class="fake-input" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+<script>
+    $(".ImgContainer").click(function () {
+        $("#PP").css('display', 'block');
+    });
+</script>

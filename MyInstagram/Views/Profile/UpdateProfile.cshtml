@@ -1,0 +1,55 @@
+﻿@using Entities
+@model User
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Profilini Güncelle</title>
+    <script src="/Scripts/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+            @Html.Partial("_ProfilePicturePP")
+        <form method="post" action="/Profile/UpdateProfile" target="_self">
+            <div class="row">
+                <div class="col-lg-3">
+                    <label for="Username">Kullanıcı Adı</label>
+                    <input type="text" name="Username" class="form-control" value="@Model.Username" />
+                </div>
+                <div class="col-lg-3">
+                    <label for="Name">Ad</label>
+                    <input type="text" name="Name" class="form-control" value="@Model.Name" />
+                </div>
+                <div class="col-lg-3">
+                    <label for="Surname">Soyad</label>
+                    <input type="text" name="Surname" class="form-control" value="@Model.Surname" />
+                </div>
+                <div class="col-lg-3">
+                    <label for="Biography">Hakkımda</label>
+                    <textarea name="Biography" class="form-control" rows="4">@Model.Biography</textarea>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Email">E-Mail</label>
+                    <input type="text" name="Email" class="form-control" value="@Model.Email" />
+                </div>
+                <div class="col-lg-4">
+                    <label for="Password">Şifre</label>
+                    <input type="text" name="Password" class="form-control" value="@Model.Password" />
+                </div>
+                <input type="submit" class="btn btn-dark" value="Kaydet" />
+            </div>
+        </form>
+    </div>
+    <style>
+        .ImgContainer {
+            height: 250px;
+            width: 250px;
+        }
+
+        .row {
+            
+        }
+    </style>    
+</body>
+</html>
